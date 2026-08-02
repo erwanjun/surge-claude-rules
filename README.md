@@ -27,12 +27,12 @@ RULE-SET,https://raw.githubusercontent.com/erwanjun/surge-claude-rules/main/Surg
 | `Surge/Claude.list` | Recommended complete list, including Claude Code downloads, telemetry, support widgets, and Anthropic network fallbacks. |
 | `Surge/Claude-Core.list` | Low-collateral list limited to Anthropic/Claude domains, uniquely branded infrastructure, and Anthropic network fallbacks. |
 
-The complete list includes shared hosts such as `raw.githubusercontent.com`, `storage.googleapis.com`, Sentry, Statsig, Intercom, and Datadog intake endpoints. Surge rules are destination-based, so unrelated applications using the same hosts will also use the selected policy. Use the core list if that is undesirable.
+The complete list includes shared hosts such as `raw.githubusercontent.com`, `storage.googleapis.com`, Sentry, Statsig, Intercom, and Datadog intake endpoints. It also includes broad `datadog`, `sentry`, and `sift` keyword matches. Surge rules are destination-based, so unrelated applications using matching hosts will also use the selected policy. Use the core list if that is undesirable.
 
 ## Design decisions
 
 - Anthropic-owned suffixes are used instead of duplicating every subdomain. For example, `DOMAIN-SUFFIX,anthropic.com` already covers `api.anthropic.com`, `mcp-proxy.anthropic.com`, and `assets-proxy.anthropic.com`.
-- Exact Datadog intake hostnames are used. Broad `DOMAIN-KEYWORD,datadog`, `DOMAIN-KEYWORD,sentry`, and `DOMAIN-KEYWORD,sift` rules are intentionally excluded because they can capture unrelated services across the entire device.
+- Broad `DOMAIN-KEYWORD,datadog`, `DOMAIN-KEYWORD,sentry`, and `DOMAIN-KEYWORD,sift` rules are included in the complete list for conservative coverage. Exact known telemetry hosts remain listed as documentation and fallback coverage. These keyword rules can capture unrelated services across the entire device; the core list avoids them.
 - NTP is intentionally excluded. NTP distributes UTC time, not the operating system timezone, and a destination-only Claude rule should not redirect every application's UDP/123 traffic.
 - The IP fallbacks use Anthropic's documented inbound client destinations (`160.79.104.0/23` and `2607:6bc0::/48`). The broader `160.79.104.0/21` documented by Anthropic is an outbound source range and is not used as a client destination fallback.
 - IP and ASN rules follow domain rules and use `no-resolve`.

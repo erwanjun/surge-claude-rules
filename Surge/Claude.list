@@ -24,6 +24,9 @@ DOMAIN,raw.githubusercontent.com
 DOMAIN,formulae.brew.sh
 
 # Telemetry, error reporting, analytics, and support widgets
+DOMAIN-KEYWORD,datadog
+DOMAIN-KEYWORD,sentry
+DOMAIN-KEYWORD,sift
 DOMAIN-SUFFIX,sentry.io
 DOMAIN-SUFFIX,statsigapi.net
 DOMAIN,browser-intake-us5-datadoghq.com

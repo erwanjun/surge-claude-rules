@@ -10,10 +10,18 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 RULE_DIR = ROOT / "Surge"
-ALLOWED_TYPES = {"DOMAIN", "DOMAIN-SUFFIX", "IP-CIDR", "IP-CIDR6", "IP-ASN"}
+ALLOWED_TYPES = {
+    "DOMAIN",
+    "DOMAIN-SUFFIX",
+    "DOMAIN-KEYWORD",
+    "IP-CIDR",
+    "IP-CIDR6",
+    "IP-ASN",
+}
 DOMAIN_RE = re.compile(
     r"^(?=.{1,253}$)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$"
 )
+DOMAIN_KEYWORD_RE = re.compile(r"^[a-z0-9._-]+$")
 
 
 def validate_rule(path: Path, line_number: int, line: str) -> str:
@@ -28,6 +36,9 @@ def validate_rule(path: Path, line_number: int, line: str) -> str:
     if rule_type in {"DOMAIN", "DOMAIN-SUFFIX"}:
         if len(fields) != 2 or not DOMAIN_RE.fullmatch(fields[1]):
             raise ValueError(f"{path}:{line_number}: invalid domain rule")
+    elif rule_type == "DOMAIN-KEYWORD":
+        if len(fields) != 2 or not DOMAIN_KEYWORD_RE.fullmatch(fields[1]):
+            raise ValueError(f"{path}:{line_number}: invalid domain keyword rule")
     elif rule_type in {"IP-CIDR", "IP-CIDR6"}:
         if len(fields) != 3 or fields[2] != "no-resolve":
             raise ValueError(f"{path}:{line_number}: IP rules must end with no-resolve")
