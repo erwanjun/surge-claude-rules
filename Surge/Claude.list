@@ -1,0 +1,38 @@
+# NAME: Claude
+# DESCRIPTION: Complete Surge rules for Claude, Claude Code, and related services
+# UPDATED: 2026-08-02
+# REPO: https://github.com/erwanjun/surge-claude-rules
+
+# Anthropic and Claude domains
+DOMAIN-SUFFIX,anthropic.com
+DOMAIN-SUFFIX,claude.ai
+DOMAIN-SUFFIX,claude.com
+DOMAIN-SUFFIX,clau.de
+DOMAIN-SUFFIX,claudemcpclient.com
+DOMAIN-SUFFIX,claudemcpcontent.com
+DOMAIN-SUFFIX,claudeusercontent.com
+
+# Uniquely branded CDN, authentication, and content infrastructure
+DOMAIN,anthropic.com.cdn.cloudflare.net
+DOMAIN,servd-anthropic-website.b-cdn.net
+DOMAIN,anthropic.auth0.com
+DOMAIN,anthropic-com.ghost.io
+
+# Claude Code distribution and metadata dependencies
+DOMAIN,storage.googleapis.com
+DOMAIN,raw.githubusercontent.com
+DOMAIN,formulae.brew.sh
+
+# Telemetry, error reporting, analytics, and support widgets
+DOMAIN-SUFFIX,sentry.io
+DOMAIN-SUFFIX,statsigapi.net
+DOMAIN,browser-intake-us5-datadoghq.com
+DOMAIN,http-intake.logs.us5.datadoghq.com
+DOMAIN-SUFFIX,intercom.io
+DOMAIN-SUFFIX,intercomcdn.com
+DOMAIN,cdn.usefathom.com
+
+# Anthropic inbound network fallbacks
+IP-CIDR,160.79.104.0/23,no-resolve
+IP-CIDR6,2607:6bc0::/48,no-resolve
+IP-ASN,399358,no-resolve
