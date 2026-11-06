@@ -1,6 +1,6 @@
 # NAME: Claude
 # DESCRIPTION: Complete Surge rules for Claude, Claude Code, and related services
-# UPDATED: 2026-08-02
+# UPDATED: 2026-11-06
 # REPO: https://github.com/erwanjun/surge-claude-rules
 
 # Anthropic and Claude domains
@@ -37,5 +37,6 @@ DOMAIN,cdn.usefathom.com
 
 # Anthropic inbound network fallbacks
 IP-CIDR,160.79.104.0/23,no-resolve
+IP-CIDR,153.61.224.0/22,no-resolve
 IP-CIDR6,2607:6bc0::/48,no-resolve
 IP-ASN,399358,no-resolve
