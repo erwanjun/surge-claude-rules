@@ -1,12 +1,13 @@
 # NAME: Claude Core
 # DESCRIPTION: Low-collateral Surge rules for Anthropic and Claude destinations
-# UPDATED: 2026-11-06
+# UPDATED: 2026-11-18
 # REPO: https://github.com/erwanjun/surge-claude-rules
 
 # Anthropic and Claude domains
 DOMAIN-SUFFIX,anthropic.com
 DOMAIN-SUFFIX,claude.ai
 DOMAIN-SUFFIX,claude.com
+DOMAIN-SUFFIX,claude.app
 DOMAIN-SUFFIX,clau.de
 DOMAIN-SUFFIX,claudemcpclient.com
 DOMAIN-SUFFIX,claudemcpcontent.com

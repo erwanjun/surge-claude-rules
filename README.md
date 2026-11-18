@@ -29,6 +29,28 @@ RULE-SET,https://raw.githubusercontent.com/erwanjun/surge-claude-rules/main/Surg
 
 The complete list includes shared hosts such as `raw.githubusercontent.com`, `storage.googleapis.com`, Sentry, Statsig, Intercom, and Datadog intake endpoints. It also includes broad `datadog`, `sentry`, and `sift` keyword matches. Surge rules are destination-based, so unrelated applications using matching hosts will also use the selected policy. Use the core list if that is undesirable.
 
+Both lists cover `claude.app` and its subdomains, including the dynamically generated live preview hosts used by Claude Desktop. [Claude Desktop network requirements](https://code.claude.com/docs/en/desktop#network-access-requirements)
+
+## Optional network dependencies
+
+Use your existing network policy for these shared destinations, or add an individual rule when you want the corresponding feature to use your Claude policy.
+
+| Destination | When Claude uses it |
+| --- | --- |
+| `github.com` | Cloning GitHub-hosted Claude Code plugin marketplaces and plugins. |
+| `registry.npmjs.org` | Installing npm-based plugins and their dependencies, running `npx` MCP servers, and installing Claude Code with npm or Bun. |
+| `withpersona.com` and its subdomains | Completing identity verification when Claude prompts for it. |
+
+Add only the lines you need to your Surge `[Rule]` section, above any broader rules for those destinations. Replace `Claude-Policy` with your policy group. Each line applies to all matching traffic, including traffic from other apps.
+
+```ini
+DOMAIN,github.com,Claude-Policy
+DOMAIN,registry.npmjs.org,Claude-Policy
+DOMAIN-SUFFIX,withpersona.com,Claude-Policy
+```
+
+[Claude Code network requirements](https://code.claude.com/docs/en/corporate-proxy#network-access-requirements) · [Claude identity verification](https://support.claude.com/en/articles/14328960-identity-verification-on-claude) · [Persona network allowlist](https://docs.withpersona.com/security#standard-domains-for-allowlisting)
+
 ## Design decisions
 
 - Anthropic-owned suffixes are used instead of duplicating every subdomain. For example, `DOMAIN-SUFFIX,anthropic.com` already covers `api.anthropic.com`, `mcp-proxy.anthropic.com`, and `assets-proxy.anthropic.com`.
